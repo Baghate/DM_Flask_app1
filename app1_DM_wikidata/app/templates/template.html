@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikidata Entity Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .metadata {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wikidata Entity Information</h1>
+        {% if error_message %}
+            <p class="error">{{ error_message }}</p>
+        {% else %}
+            <h2>Response Metadata</h2>
+            <div class="metadata">
+                <p><strong>HTTP Status Code:</strong> {{ status_code }}</p>
+                <p><strong>Content Type:</strong> {{ content_type }}</p>
+            </div>
+            
+            {% if entity_data %}
+                <h2>Entity Details</h2>
+                <pre>{{ entity_data | tojson(indent=2) }}</pre>
+            {% else %}
+                <p class="error">No entity data available for the given ID.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
